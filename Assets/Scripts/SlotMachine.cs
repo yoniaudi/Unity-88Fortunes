@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SlotMachine : MonoBehaviour
 {
-    //private List<Image[]> m_Reels;
+    private Dictionary<int, Dictionary<Sprite, int>> m_Records = new Dictionary<int, Dictionary<Sprite, int>>();
     private Image[][] m_Reels = new Image[3][];
     public Image[] Reels1 = null;
     public Image[] Reels2 = null;
@@ -40,6 +41,21 @@ public class SlotMachine : MonoBehaviour
                 int randomIndex = UnityEngine.Random.Range(0, Symbols.Length);
 
                 m_Reels[j][i].sprite = Symbols[randomIndex];
+
+                if (m_Records.ContainsKey(i) == false)
+                {
+                    m_Records[i] = new Dictionary<Sprite, int>();
+                }
+
+                if (m_Records[i].ContainsKey(m_Reels[j][i].sprite))
+                {
+                    m_Records[i][m_Reels[j][i].sprite] += 1;
+                }
+                else
+                {
+                    m_Records[i][m_Reels[j][i].sprite] = 1;
+                }
+
                 yield return new WaitForSeconds(0.1f);
             }
         }
@@ -56,20 +72,62 @@ public class SlotMachine : MonoBehaviour
             }
         }*/
 
-        //checkWinCondition();
+        checkWinCondition();
     }
-    /*
+
     private void checkWinCondition()
     {
-        for (int i = 1; i < Reels.Length; i++)
+        // Arrays to store sets for each column
+        HashSet<Sprite>[] sets = new HashSet<Sprite>[m_Records.Count];
+
+        for (int i = 0; i < sets.Length; i++)
         {
-            if (Reels[i - 1].sprite != Reels[i].sprite)
+            sets[i] = new HashSet<Sprite>();
+            foreach (var dic in m_Records[i])
             {
-                Console.WriteLine("Try Again!");
-                break;
+                sets[i].Add(dic.Key);
             }
         }
 
-        Debug.Log("You Win!");
-    }*/
+        foreach (Sprite sprite in sets[2]) // Use the middle column as the reference
+        {
+            // Check left side
+            int leftStrike = 1;
+            int rightStrike = 1;
+
+            // Check left side
+            if (sets[1].Contains(sprite))
+            {
+                leftStrike++;
+
+                if (sets[0].Contains(sprite))
+                {
+                    leftStrike++;
+                }
+            }
+
+            // Check right side
+            if (sets[3].Contains(sprite))
+            {
+                rightStrike++;
+
+                if (sets[4].Contains(sprite))
+                {
+                    rightStrike++;
+                }
+            }
+
+            // Check if we have at least 3 consecutive identical symbols
+            if (leftStrike + rightStrike - 1 >= 3)
+            {
+                Debug.Log($"Win: Found a series of {leftStrike + rightStrike - 1} consecutive {sprite.name} symbols.");
+                CalculateScore();
+            }
+        }
+    }
+
+    private void CalculateScore()
+    {
+        Debug.Log("Score calculated based on the win condition.\n");
+    }
 }
