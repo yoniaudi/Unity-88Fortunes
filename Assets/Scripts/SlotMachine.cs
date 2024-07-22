@@ -50,6 +50,7 @@ public class SlotMachine : MonoBehaviour
                 {
                     randomIndex = UnityEngine.Random.Range(0, Symbols.Length);
                     m_Reels[j][i].sprite = Symbols[randomIndex];
+                    isWildSpritePositionLegal = checkIfWild(m_Reels[j][i].sprite, i);
                 }
 
                 if (m_Records.ContainsKey(i) == false)
@@ -104,7 +105,7 @@ public class SlotMachine : MonoBehaviour
             int leftStrike = 1;
             int rightStrike = 1;
 
-            if (sets[1].Contains(sprite))
+            if (sets[1].Contains(sprite) || sets[1].Any(sprite => sprite.name == "icon_3"))
             {
                 leftStrike++;
 
@@ -114,7 +115,7 @@ public class SlotMachine : MonoBehaviour
                 }
             }
 
-            if (sets[3].Contains(sprite))
+            if (sets[3].Contains(sprite) || sets[3].Any(sprite => sprite.name == "icon_3"))
             {
                 rightStrike++;
 
