@@ -41,8 +41,16 @@ public class SlotMachine : MonoBehaviour
             for (int j = 0; j < m_Reels.Length; j++)
             {
                 int randomIndex = UnityEngine.Random.Range(0, Symbols.Length);
+                bool isWildSpritePositionLegal = true;
 
                 m_Reels[j][i].sprite = Symbols[randomIndex];
+                isWildSpritePositionLegal = checkIfWild(m_Reels[j][i].sprite, i);
+
+                while (isWildSpritePositionLegal == false)
+                {
+                    randomIndex = UnityEngine.Random.Range(0, Symbols.Length);
+                    m_Reels[j][i].sprite = Symbols[randomIndex];
+                }
 
                 if (m_Records.ContainsKey(i) == false)
                 {
@@ -62,24 +70,23 @@ public class SlotMachine : MonoBehaviour
             }
         }
 
-        /*foreach (Image[] reel in m_Reels)
-        {
-            for (int i = 0; i < reel.Length; i++)
-            {
-                int randomIndex = UnityEngine.Random.Range(0, Symbols.Length);
-
-                reel[i].sprite = Symbols[randomIndex];
-
-                yield return new WaitForSeconds(0.1f);
-            }
-        }*/
-
         checkWinCondition();
+    }
+
+    private bool checkIfWild(Sprite i_Sprite, int i_Index)
+    {
+        bool isLegal = true;
+
+        if (i_Sprite.name == "icon_3" && (i_Index == 0 || i_Index == 4))
+        {
+            isLegal = false;
+        }
+
+        return isLegal;
     }
 
     private void checkWinCondition()
     {
-        // Arrays to store sets for each column
         HashSet<Sprite>[] sets = new HashSet<Sprite>[m_Records.Count];
 
         for (int i = 0; i < sets.Length; i++)
@@ -92,13 +99,11 @@ public class SlotMachine : MonoBehaviour
             }
         }
 
-        foreach (Sprite sprite in sets[2]) // Use the middle column as the reference
+        foreach (Sprite sprite in sets[2])
         {
-            // Check left side
             int leftStrike = 1;
             int rightStrike = 1;
 
-            // Check left side
             if (sets[1].Contains(sprite))
             {
                 leftStrike++;
@@ -109,7 +114,6 @@ public class SlotMachine : MonoBehaviour
                 }
             }
 
-            // Check right side
             if (sets[3].Contains(sprite))
             {
                 rightStrike++;
@@ -120,7 +124,6 @@ public class SlotMachine : MonoBehaviour
                 }
             }
 
-            // Check if we have at least 3 consecutive identical symbols
             if (leftStrike + rightStrike - 1 >= 3)
             {
                 Debug.Log($"Win: Found a series of {leftStrike + rightStrike - 1} consecutive {sprite.name} symbols.");
