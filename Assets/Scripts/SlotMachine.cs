@@ -34,6 +34,8 @@ public class SlotMachine : MonoBehaviour
 
     IEnumerator SpinRoutine()
     {
+        m_Records = new Dictionary<int, Dictionary<Sprite, int>>();
+
         for (int i = 0; i < m_Reels[0].Length; i++)
         {
             for (int j = 0; j < m_Reels.Length; j++)
@@ -83,6 +85,7 @@ public class SlotMachine : MonoBehaviour
         for (int i = 0; i < sets.Length; i++)
         {
             sets[i] = new HashSet<Sprite>();
+
             foreach (var dic in m_Records[i])
             {
                 sets[i].Add(dic.Key);

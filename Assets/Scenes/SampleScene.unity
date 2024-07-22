@@ -515,8 +515,8 @@ RectTransform:
   - {fileID: 116592927}
   - {fileID: 1473551178}
   - {fileID: 1540100692}
-  - {fileID: 1742539346}
   - {fileID: 627376232}
+  - {fileID: 1742539346}
   - {fileID: 1842281846}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -779,7 +779,7 @@ GameObject:
   - component: {fileID: 627376233}
   - component: {fileID: 627376234}
   m_Layer: 5
-  m_Name: ImageReel14
+  m_Name: ImageReel13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -946,27 +946,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5384575c350bd0489378d31cdfd0b55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Reels:
+  Reels1:
   - {fileID: 1731654400}
   - {fileID: 1677005491}
   - {fileID: 1260081532}
+  Reels2:
   - {fileID: 883389807}
   - {fileID: 1756820029}
   - {fileID: 709032670}
+  Reels3:
   - {fileID: 296168505}
   - {fileID: 1175620545}
   - {fileID: 474767843}
+  Reels4:
   - {fileID: 116592929}
   - {fileID: 1473551179}
   - {fileID: 1540100694}
-  - {fileID: 1742539347}
+  Reels5:
   - {fileID: 627376234}
+  - {fileID: 1742539347}
   - {fileID: 1842281848}
   Symbols:
   - {fileID: 21300000, guid: 41aca94115d8b5f48a37134713f515e4, type: 3}
-  - {fileID: 21300000, guid: b88a9bb5f633c764b93966e54f5a6b32, type: 3}
+  - {fileID: 21300000, guid: 611a96fc2f7f6c448b08f74c820ff5d9, type: 3}
   - {fileID: 21300000, guid: 71fa2f486d1c588438f8e496872741de, type: 3}
-  - {fileID: 21300000, guid: 1abb97e28f0921c45b64fd8748dc73a7, type: 3}
+  - {fileID: 21300000, guid: e6a828c4945feea479d28c6f522ab22d, type: 3}
   - {fileID: 21300000, guid: 248442ab698803a48b6dbf8509c6afb3, type: 3}
   - {fileID: 21300000, guid: 6c1f8b0a793ec314daa856578e280c99, type: 3}
   - {fileID: 21300000, guid: f2fbb0d0c0c78b54789ce6488083338c, type: 3}
@@ -1645,7 +1649,7 @@ GameObject:
   - component: {fileID: 1742539348}
   - component: {fileID: 1742539347}
   m_Layer: 5
-  m_Name: ImageReel13
+  m_Name: ImageReel14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
