@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SlotMachine : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Image[] Reels;
+    public Sprite[] Symbols;
+    public Button SpinButton;
+
     void Start()
     {
-        
+        SpinButton.onClick.AddListener(spinReels);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void spinReels()
     {
-        
+        foreach (Image reel in Reels)
+        {
+            int randomIndex = Random.Range(0, Symbols.Length);
+
+            reel.sprite = Symbols[randomIndex];
+        }
     }
 }
