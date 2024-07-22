@@ -44,6 +44,7 @@ public class SlotMachine : MonoBehaviour
     IEnumerator SpinRoutine()
     {
         m_Records = new Dictionary<int, Dictionary<Sprite, int>>();
+        Score.text = "Score: ";
 
         for (int i = 0; i < m_Reels[0].Length; i++)
         {
@@ -99,8 +100,6 @@ public class SlotMachine : MonoBehaviour
     {
         HashSet<Sprite>[] sets = new HashSet<Sprite>[m_Records.Count];
 
-        Score.text = "Score: ";
-
         for (int i = 0; i < sets.Length; i++)
         {
             sets[i] = new HashSet<Sprite>();
@@ -145,6 +144,7 @@ public class SlotMachine : MonoBehaviour
 
         Score.text = Score.text.TrimEnd(' ', '+');
         Score.text += $" = {m_TotalScore}";
+        m_ScoreStr.Clear();
     }
 
     private void calculateScore(Sprite i_Sprite)
@@ -159,7 +159,6 @@ public class SlotMachine : MonoBehaviour
                 score *= dic.Value[i_Sprite];
                 m_ScoreStr.Append(" * ");
             }
-
         }
 
         m_TotalScore += score;
